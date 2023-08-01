@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 
@@ -15,12 +17,20 @@ public class SecondActivity extends AppCompatActivity {
 ListView lv;
 Button btn;
 CustomAdapter adapter;
+Spinner spinnerRatings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
         lv=findViewById(R.id.lv);
         btn=findViewById(R.id.btnPG13);
+        spinnerRatings=findViewById(R.id.spinnerRatings);
+
+        Spinner spinnerRatings = findViewById(R.id.spinnerRatings);
+        ArrayAdapter<CharSequence> ratingsAdapter = ArrayAdapter.createFromResource(this, R.array.movie_ratings, android.R.layout.simple_spinner_item);
+        ratingsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRatings.setAdapter(ratingsAdapter);
+
         adapter=new CustomAdapter(this,R.layout.row,new ArrayList<Movie>());
         lv.setAdapter(adapter);
 
@@ -38,6 +48,24 @@ CustomAdapter adapter;
                 adapter.clear();
                 adapter.addAll(pg13Movies);
                 adapter.notifyDataSetChanged();
+            }
+        });
+        spinnerRatings.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedRating = parent.getItemAtPosition(position).toString();
+
+                // Get the movies based on the selected rating from the DBHelper
+                DBHelper dbHelper = new DBHelper(SecondActivity.this);
+                ArrayList<Movie> filteredMovies = dbHelper.getMoviesByRating(selectedRating);
+                adapter.clear();
+                adapter.addAll(filteredMovies);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Handle the case when nothing is selected in the Spinner (optional)
             }
         });
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
