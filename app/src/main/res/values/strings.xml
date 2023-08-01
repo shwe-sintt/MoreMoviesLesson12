@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MovieNight</string>
+    <string name="insertMovie">My Movies - Insert Movies</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="titleHint">Enter movie title here</string>
+    <string name="genre">Genre</string>
+    <string name="genreHint">Enter genre here</string>
+    <string name="year">Year</string>
+    <string name="yearHint">Enter year of release here</string>
+    <string name="rating">Rating</string>
+    <string name="insert">Insert</string>
+    <string name="show_list">Show List</string>
+    <string name="pg13">SHOW ALL PG 13 MOVIES</string>
+    <string name="cancel">Cancel</string>
+    <string name="modify_movie">Modify Movie</string>
+    <string name="movie_id">Movie ID</string>
+</resources>
