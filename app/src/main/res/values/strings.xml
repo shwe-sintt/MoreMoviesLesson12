@@ -15,6 +15,7 @@
     <string name="modify_movie">Modify Movie</string>
     <string name="movie_id">Movie ID</string>
     <string-array name="movie_ratings">
+        <item>ALL</item>
         <item>G</item>
         <item>PG</item>
         <item>PG13</item>

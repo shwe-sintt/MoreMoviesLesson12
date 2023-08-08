@@ -56,17 +56,26 @@ Spinner spinnerRatings;
                 String selectedRating = parent.getItemAtPosition(position).toString();
 
                 // Get the movies based on the selected rating from the DBHelper
-                DBHelper dbHelper = new DBHelper(SecondActivity.this);
-                ArrayList<Movie> filteredMovies = dbHelper.getMoviesByRating(selectedRating);
-                adapter.clear();
-                adapter.addAll(filteredMovies);
-                adapter.notifyDataSetChanged();
+                if ("ALL".equals(selectedRating)) {
+                    // Show all movies in the list view
+                    DBHelper dbHelper = new DBHelper(SecondActivity.this);
+                    ArrayList<Movie> allMovies = dbHelper.getMovies();
+                    adapter.clear();
+                    adapter.addAll(allMovies);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    // Get the movies based on the selected rating from the DBHelper
+                    DBHelper dbHelper = new DBHelper(SecondActivity.this);
+                    ArrayList<Movie> filteredMovies = dbHelper.getMoviesByRating(selectedRating);
+                    adapter.clear();
+                    adapter.addAll(filteredMovies);
+                    adapter.notifyDataSetChanged();
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // Handle the case when nothing is selected in the Spinner (optional)
-            }
+                }
         });
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

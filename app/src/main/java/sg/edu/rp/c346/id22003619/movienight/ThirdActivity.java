@@ -1,7 +1,9 @@
 package sg.edu.rp.c346.id22003619.movienight;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -76,27 +78,80 @@ Movie selectedMovie;
                 startActivity(intent1);
             }
         });
+//        btnDelete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AlertDialog.Builder mybuilder=new AlertDialog.Builder(ThirdActivity.this);
+//                mybuilder.setTitle("Danger");
+//                mybuilder.setMessage("Are you sure you want to delete the movie "+selectedMovie.getTitle());
+//                mybuilder.setCancelable(false);
+//                mybuilder.setPositiveButton("Cancel", null);
+//                mybuilder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        DBHelper dbHelper = new DBHelper(ThirdActivity.this);
+//                        int rowsAffected = dbHelper.deleteMovie(selectedMovie.getId());
+//                        if (rowsAffected > 0) {
+//                            Toast.makeText(ThirdActivity.this, "Movie deleted successfully", Toast.LENGTH_SHORT).show();
+//                            finish();
+//                        } else {
+//                            Toast.makeText(ThirdActivity.this, "Error deleting movie", Toast.LENGTH_SHORT).show();
+//                        }
+//                        dbHelper.close();
+//                        Intent intent1= new Intent(ThirdActivity.this,SecondActivity.class);
+//                        startActivity(intent1);
+//                    }
+//                });
+//                AlertDialog myDialog= mybuilder.create();
+//                myDialog.show();
+//            }
+//        });
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DBHelper dbHelper = new DBHelper(ThirdActivity.this);
-                int rowsAffected = dbHelper.deleteMovie(selectedMovie.getId());
-                if (rowsAffected > 0) {
-                    Toast.makeText(ThirdActivity.this, "Movie deleted successfully", Toast.LENGTH_SHORT).show();
-                    finish();
-                } else {
-                    Toast.makeText(ThirdActivity.this, "Error deleting movie", Toast.LENGTH_SHORT).show();
-                }
-                dbHelper.close();
-                Intent intent1= new Intent(ThirdActivity.this,SecondActivity.class);
-                startActivity(intent1);
+                AlertDialog.Builder mybuilder=new AlertDialog.Builder(ThirdActivity.this);
+                mybuilder.setTitle("Danger");
+                mybuilder.setMessage("Are you sure you want to delete the movie "+selectedMovie.getTitle());
+                mybuilder.setCancelable(false);
+                mybuilder.setPositiveButton("Cancel", null);
+                mybuilder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DBHelper dbHelper = new DBHelper(ThirdActivity.this);
+                        int rowsAffected = dbHelper.deleteMovie(selectedMovie.getId());
+                        if (rowsAffected > 0) {
+                            Toast.makeText(ThirdActivity.this, "Movie deleted successfully", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(ThirdActivity.this, "Error deleting movie", Toast.LENGTH_SHORT).show();
+                        }
+                        dbHelper.close();
+                        Intent intent1= new Intent(ThirdActivity.this,SecondActivity.class);
+                        startActivity(intent1);
+                    }
+                });
+                AlertDialog myDialog= mybuilder.create();
+                myDialog.show();
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ThirdActivity.this, SecondActivity.class);
-                startActivity(intent);
+                AlertDialog.Builder mybuilder=new AlertDialog.Builder(ThirdActivity.this);
+                mybuilder.setTitle("Danger");
+                mybuilder.setMessage("Are you sure you want to discard the changes "+selectedMovie.getTitle());
+                mybuilder.setCancelable(false);
+                mybuilder.setPositiveButton("DO NOT DISCARD", null);
+                mybuilder.setNegativeButton("DISCARD", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(ThirdActivity.this, SecondActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                AlertDialog myDialog= mybuilder.create();
+                myDialog.show();
+
             }
         });
     }
